@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-200">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nava - Career & Education Advisor</title>
+    <meta name="description" content="Personalized Career & Education Advisor for students in Jammu & Kashmir">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <!-- Logo -->
+            <div class="logo" onclick="showHome()">
+                <i class="fas fa-graduation-cap"></i>
+                <div>
+                    <h1>Nava</h1>
+                    <p>Career & Education Advisor</p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <form class="search-form" onsubmit="handleSearch(event)">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search courses, colleges, careers..." class="search-input">
+                </form>
+                <div id="searchResults" class="search-results hidden"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="header-actions">
+                <!-- Theme Toggle -->
+                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Theme">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <button class="icon-btn notification-btn" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+
+                <!-- Login Button -->
+                <button class="login-btn" onclick="showLogin()" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Get Started</span>
+                </button>
+
+                <!-- User Profile (hidden by default) -->
+                <div class="user-profile hidden" id="userProfile">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <span id="userInitials">U</span>
+                    </div>
+                    <div class="user-menu hidden" id="userMenu">
+                        <div class="user-info">
+                            <span id="userName">User Name</span>
+                            <span id="userEmail">user@example.com</span>
+                        </div>
+                        <button onclick="showDashboard()">Dashboard</button>
+                        <button onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Your Personalized Career & Education Journey Starts Here</h1>
+                        <p>Discover the perfect career path with AI-powered assessments, comprehensive college directory, and expert guidance tailored for students in Jammu & Kashmir.</p>
+                        <div class="hero-actions">
+                            <button class="btn-primary" onclick="showAssessment()">
+                                <i class="fas fa-brain"></i>
+                                Take Career Assessment
+                            </button>
+                            <button class="btn-secondary" onclick="showColleges()">
+                                <i class="fas fa-university"></i>
+                                Explore Colleges
+                            </button>
+                            <button class="btn-secondary" onclick="showScholarships()">
+                                <i class="fas fa-award"></i>
+                                Scholarships
+                            </button>
+                            <button class="btn-secondary" onclick="showTimeline()">
+                                <i class="fas fa-calendar-alt"></i>
+                                Timeline
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop" alt="Students learning">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="container">
+                    <h2>Comprehensive Career Guidance Platform</h2>
+                    <div class="features-grid">
+                        <div class="feature-card" onclick="showAssessment()">
+                            <i class="fas fa-brain"></i>
+                            <h3>Smart Assessment</h3>
+                            <p>AI-powered quizzes to identify your interests, skills, and ideal career paths</p>
+                        </div>
+                        <div class="feature-card" onclick="showColleges()">
+                            <i class="fas fa-university"></i>
+                            <h3>College Directory</h3>
+                            <p>Comprehensive database of government colleges with admission details</p>
+                        </div>
+                        <div class="feature-card" onclick="showCourses()">
+                            <i class="fas fa-route"></i>
+                            <h3>Career Mapping</h3>
+                            <p>Visualize your educational journey and future job prospects</p>
+                        </div>
+                        <div class="feature-card" onclick="showScholarships()">
+                            <i class="fas fa-award"></i>
+                            <h3>Scholarships</h3>
+                            <p>Find financial aid opportunities and scholarship programs</p>
+                        </div>
+                        <div class="feature-card" onclick="showInternships()">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Internships</h3>
+                            <p>Discover internship opportunities and work experience programs</p>
+                        </div>
+                        <div class="feature-card" onclick="showTimeline()">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3>Timeline Tracker</h3>
+                            <p>Track important academic dates and application deadlines</p>
+                        </div>
+                        <div class="feature-card" onclick="showExpertGuidance()">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Expert Guidance</h3>
+                            <p>Get personalized advice from career counselors and mentors</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Assessment Page -->
+        <div id="assessmentPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Career Assessment Quiz</h1>
+                    <p>Answer these questions to discover your ideal career path</p>
+                </div>
+                <div class="assessment-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="assessmentProgress"></div>
+                    </div>
+                    <div id="questionContainer" class="question-container">
+                        <!-- Questions will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colleges Page -->
+        <div id="collegesPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Government Colleges Directory</h1>
+                    <p>Explore government colleges in Jammu & Kashmir</p>
+                </div>
+                <div class="colleges-grid" id="collegesGrid">
+                    <!-- Colleges will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses Page -->
+        <div id="coursesPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Course Career Mapping</h1>
+                    <p>Explore different courses and their career prospects</p>
+                </div>
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Courses will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="page">
+            <div class="auth-overlay">
+                <div class="auth-container">
+                    <button class="close-btn" onclick="showHome()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="auth-content">
+                        <div class="auth-info">
+                            <h2>Why Choose Our Platform?</h2>
+                            <div class="benefit">
+                                <i class="fas fa-user-graduate"></i>
+                                <div>
+                                    <h3>Personalized Recommendations</h3>
+                                    <p>Get course and career suggestions tailored to your interests</p>
+                                </div>
+                            </div>
+                            <div class="benefit">
+                                <i class="fas fa-university"></i>
+                                <div>
+                                    <h3>Government College Directory</h3>
+                                    <p>Access comprehensive information about government colleges</p>
+                                </div>
+                            </div>
+                            <div class="benefit">
+                                <i class="fas fa-chart-line"></i>
+                                <div>
+                                    <h3>Career Path Mapping</h3>
+                                    <p>Visualize your educational journey and future prospects</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="auth-forms">
+                            <div class="auth-tabs">
+                                <button class="tab active" onclick="showAuthTab('login')">Sign In</button>
+                                <button class="tab" onclick="showAuthTab('signup')">Sign Up</button>
+                            </div>
+                            
+                            <!-- Login Form -->
+                            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email</label>
+                                    <input type="email" id="loginEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPassword">Password</label>
+                                    <div class="password-input">
+                                        <input type="password" id="loginPassword" required>
+                                        <button type="button" onclick="togglePassword('loginPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary" id="loginSubmit">
+                                    Sign In
+                                </button>
+                            </form>
+
+                            <!-- Signup Form -->
+                            <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupEmail">Email</label>
+                                    <input type="email" id="signupEmail" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="age">Age</label>
+                                        <input type="number" id="age" min="13" max="100" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <div class="radio-group">
+                                            <label><input type="radio" name="gender" value="male"> Male</label>
+                                            <label><input type="radio" name="gender" value="female"> Female</label>
+                                            <label><input type="radio" name="gender" value="other"> Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="educationLevel">Education Level</label>
+                                    <select id="educationLevel" required>
+                                        <option value="">Select your current level</option>
+                                        <option value="class-10">Class 10 (Currently studying)</option>
+                                        <option value="class-10-completed">Class 10 (Completed)</option>
+                                        <option value="class-12">Class 12 (Currently studying)</option>
+                                        <option value="class-12-completed">Class 12 (Completed)</option>
+                                        <option value="undergraduate">Undergraduate</option>
+                                        <option value="graduate">Graduate</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupPassword">Password</label>
+                                    <div class="password-input">
+                                        <input type="password" id="signupPassword" required>
+                                        <button type="button" onclick="togglePassword('signupPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <div class="password-input">
+                                        <input type="password" id="confirmPassword" required>
+                                        <button type="button" onclick="togglePassword('confirmPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" required>
+                                        I agree to the Terms of Service and Privacy Policy
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn-primary" id="signupSubmit">
+                                    Create My Account
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h1>Welcome back, <span id="dashboardUserName">User</span>!</h1>
+                    <p>Here's your personalized career dashboard</p>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Assessment Progress</h3>
+                        <div class="progress-circle">
+                            <span>75%</span>
+                        </div>
+                        <p>Career assessment completed</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Recommended Colleges</h3>
+                        <div class="dashboard-list">
+                            <div class="list-item">Government Medical College, Srinagar</div>
+                            <div class="list-item">NIT Srinagar</div>
+                            <div class="list-item">University of Kashmir</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Upcoming Deadlines</h3>
+                        <div class="dashboard-list">
+                            <div class="list-item">NEET Application - 15 days left</div>
+                            <div class="list-item">JEE Main Registration - 30 days left</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scholarships Page -->
+        <div id="scholarshipsPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Scholarships & Financial Aid</h1>
+                    <p>Find scholarships and financial assistance programs available in J&K</p>
+                </div>
+                <div class="scholarships-grid" id="scholarshipsGrid">
+                    <!-- Scholarships will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Internships Page -->
+        <div id="internshipsPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Internship Opportunities</h1>
+                    <p>Explore internship programs to gain practical experience</p>
+                </div>
+                <div class="internships-grid" id="internshipsGrid">
+                    <!-- Internships will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Page -->
+        <div id="timelinePage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Academic Timeline Tracker</h1>
+                    <p>Stay updated with important dates and deadlines</p>
+                </div>
+                <div class="timeline-container" id="timelineContainer">
+                    <!-- Timeline will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Expert Guidance Page -->
+        <div id="expertGuidancePage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Expert Guidance</h1>
+                    <p>Get personalized advice from career counselors and experts</p>
+                </div>
+                <div class="expert-guidance-content" id="expertGuidanceContent">
+                    <!-- Expert guidance content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <div id="chatbotButton" class="chatbot-button" onclick="toggleChatbot()">
+            <div class="bot-face">
+                <div class="bot-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="bot-mouth"></div>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div id="chatInterface" class="chat-interface hidden">
+            <div class="chat-header">
+                <div class="chat-info">
+                    <div class="bot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <h4>AI Career Advisor</h4>
+                        <span class="status">Online & Ready to Help</span>
+                    </div>
+                </div>
+                <div class="chat-controls">
+                    <button onclick="maximizeChat()" title="Maximize" id="maximizeBtn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button onclick="toggleChatbot()" title="Close Chat" class="close-chat-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your AI Career Advisor. How can I help you today?</p>
+                        <div class="message-suggestions">
+                            <button onclick="sendMessage('Tell me about engineering careers')">Engineering Careers</button>
+                            <button onclick="sendMessage('What are the best medical colleges?')">Medical Colleges</button>
+                            <button onclick="sendMessage('How do I prepare for NEET?')">NEET Preparation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <form onsubmit="handleChatMessage(event)">
+                    <input type="text" id="chatInput" placeholder="Type your message...">
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div id="rightSidebar" class="right-sidebar">
+        <div class="sidebar-section">
+            <h3>Quick Navigation</h3>
+            <div class="quick-links">
+                <a href="#" class="quick-link" onclick="showAssessment()">
+                    <i class="fas fa-brain"></i>
+                    <span>Career Assessment</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showColleges()">
+                    <i class="fas fa-university"></i>
+                    <span>College Directory</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showCourses()">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Course Mapping</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showScholarships()">
+                    <i class="fas fa-award"></i>
+                    <span>Scholarships</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showInternships()">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Internships</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showTimeline()">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Timeline Tracker</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showExpertGuidance()">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Expert Guidance</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3>Resources</h3>
+            <div class="quick-links">
+                <a href="#" class="quick-link" onclick="showToast('info', 'Feature Coming Soon', 'Study materials will be available soon!')">
+                    <i class="fas fa-book"></i>
+                    <span>Study Materials</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showToast('info', 'Feature Coming Soon', 'Mock tests will be available soon!')">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Mock Tests</span>
+                </a>
+                <a href="#" class="quick-link" onclick="showToast('info', 'Feature Coming Soon', 'Career videos will be available soon!')">
+                    <i class="fas fa-video"></i>
+                    <span>Career Videos</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" onclick="toggleRightSidebar()" title="Quick Navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
